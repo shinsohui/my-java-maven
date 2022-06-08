@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: java-hello
-          image: ttoii/java-hello-world:latest
+          image: ttoii/java-hello-world
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
