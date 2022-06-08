@@ -5,15 +5,15 @@ metadata:
 spec:
   replicas: 3
   selector:
-    mathchLabels:
+    matchLabels:
       app: java-hello
   template:
     metadata:
       labels:
         app: java-hello
-      spec:
-        containers:
-          - name: java-hello
-            image: ttoii/java-hello-world
-            ports:
-              - containerPort: 8080
+    spec:
+      containers:
+        - name: java-hello
+          image: ttoii/java-hello-world
+          ports:
+            - containerPort: 8080
