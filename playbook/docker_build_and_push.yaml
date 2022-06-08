@@ -1,19 +1,17 @@
-- name: Docker Image Build
-  hosts: ansible_host
-  gather_facts: false
+- hosts: ansible_host
+  gather_facts: no
 
   tasks:
-    - command: docker image build -t ttoii/java-hello-world java-hello-world/
-    - command: docker login -u ttoii -p "{{ lookup('env', 'PASS') }}"
-    - command: docker push ttoii/java-hello-world
-    - command: docker logout
+    - name: Login to Docker Hub
+      docker_login:
+        username: ttoii
+        password: "{{ lookup('env', 'PASS' }}"
+        reauthorize: yes
 
-- name: Docker Run
-  hosts: docker_host
-  gather_facts: false  
-
-  tasks:
-    - command: docker container rm -f java-hello-world
-      ignore_errors: yes
-    - command: docker container run -d -p 8080:8080 --name java-hello-world ttoii/java-hello-world
-
+    - name: Build and Push Image
+      docker_image:
+        build:
+          path: /home/vagrant/java-hello-world
+        name: ttoii/java-hello-world
+        push: yes
+        source: build
