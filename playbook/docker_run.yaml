@@ -4,6 +4,10 @@
   tasks:
     - docker_container:
         name: java-hello-world
+        state: absent
+      ignore_errors: yes
+    - docker_container:
+        name: java-hello-world
         image: ttoii/java-hello-world
         state: started
         recreate: yes
